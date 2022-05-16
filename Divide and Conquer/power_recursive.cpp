@@ -16,7 +16,7 @@ public:
             if (y > 0)
                 return x * a * a;
             else
-                return a * a / 2;
+                return a * a / x;
         }
     }
 };
