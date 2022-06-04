@@ -1,0 +1,22 @@
+class Solution
+{
+public:
+    int getd(Node *root, int *h)
+    {
+        if (root == NULL)
+        {
+            *h = 0;
+            return 0;
+        }
+        int lh = 0, rh = 0;
+        int ld = getd(root->left, &lh);
+        int rd = getd(root->right, &rh);
+        *h = max(lh, rh) + 1;
+        return max({ld, rd, 1 + lh + rh});
+    }
+    int diameter(Node *root)
+    {
+        int h = 0;
+        return getd(root, &h);
+    }
+};
