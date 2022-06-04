@@ -1,0 +1,52 @@
+class Solution1
+{
+public:
+    unordered_map<int, int> m;
+    void traversal(Node *root, int l)
+    {
+        if (root == NULL)
+            return;
+        m[l]++;
+        traversal(root->left, l + 1);
+        traversal(root->right, l + 1);
+    }
+    int getMaxWidth(Node *root)
+    {
+
+        traversal(root, 1);
+        int maxw = 0;
+        for (auto i : m)
+        {
+            maxw = max(maxw, i.second);
+        }
+        return maxw;
+    }
+};
+class Solution
+{
+public:
+    int getMaxWidth(Node *root)
+    {
+
+        if (root == NULL)
+            return 0;
+        int ans = 0;
+        queue<Node *> q;
+        q.push(root);
+        while (!q.empty())
+        {
+            int c = q.size();
+            ans = max(ans, c);
+            while (c--)
+            {
+                Node *x = q.front();
+                q.pop();
+                if (x->left)
+                    q.push(x->left);
+                if (x->right)
+                    q.push(x->right);
+            }
+        }
+        return ans;
+    }
+};
