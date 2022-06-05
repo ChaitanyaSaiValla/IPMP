@@ -1,0 +1,23 @@
+class Solution
+{
+public:
+    map<int, int> m;
+    void dfs(Node *root, int l)
+    {
+        if (root == NULL)
+            return;
+        m[l] += root->data;
+        dfs(root->left, l - 1);
+        dfs(root->right, l + 1);
+    }
+    vector<int> verticalSum(Node *root)
+    {
+        if (root == NULL)
+            return {};
+        dfs(root, 0);
+        vector<int> ans;
+        for (auto i : m)
+            ans.push_back(i.second);
+        return ans;
+    }
+};
