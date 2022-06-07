@@ -1,0 +1,24 @@
+class Solution
+{
+public:
+    int sum(Node *root, bool &flag)
+    {
+        if (root == NULL)
+            return 0;
+        int l = sum(root->left, flag);
+        int r = sum(root->right, flag);
+        if ((l + r) != 0 && (l + r) != root->data)
+            flag = false;
+        return root->data + l + r;
+    }
+    bool isSumTree(Node *root)
+    {
+        if (root == NULL)
+            return true;
+        bool flag = true;
+        sum(root, flag);
+        if (flag)
+            return true;
+        return false;
+    }
+};
