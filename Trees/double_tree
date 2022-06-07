@@ -1,0 +1,16 @@
+class Solution
+{
+public:
+    void doubletree(Node *root)
+    {
+        Node *oldleft;
+        if (root == NULL)
+            return;
+        doubletree(root->left);
+        doubletree(root->right);
+
+        oldleft = root->left;
+        root->left = new Node(root->data);
+        root->left->left = oldleft;
+    }
+};
