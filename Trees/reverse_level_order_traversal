@@ -1,24 +1,28 @@
-vector<int> reverseLevelOrder(Node *root)
+class Solution
 {
-    if (root == NULL)
-        return {};
-    vector<int> ans;
-    queue<Node *> q;
-    q.push(root);
-    while (!q.empty())
+public:
+    vector<int> reverseLevelOrder(Node *root)
     {
-        int s = q.size();
-        while (s--)
+        if (root == NULL)
+            return {};
+        vector<int> ans;
+        queue<Node *> q;
+        q.push(root);
+        while (!q.empty())
         {
-            auto x = q.front();
-            q.pop();
-            ans.push_back(x->data);
-            if (x->right)
-                q.push(x->right);
-            if (x->left)
-                q.push(x->left);
+            int s = q.size();
+            while (s--)
+            {
+                auto x = q.front();
+                q.pop();
+                ans.push_back(x->data);
+                if (x->right)
+                    q.push(x->right);
+                if (x->left)
+                    q.push(x->left);
+            }
         }
+        reverse(ans.begin(), ans.end());
+        return ans;
     }
-    reverse(ans.begin(), ans.end());
-    return ans;
-}
+};
