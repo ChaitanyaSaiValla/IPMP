@@ -1,4 +1,4 @@
-class Solution
+class Solution1
 {
 public:
     Node *LCA(Node *root, int n1, int n2)
@@ -11,5 +11,21 @@ public:
             return LCA(root->right, n1, n2);
         else
             return root;
+    }
+};
+class Solution2
+{
+    Node *LCA(Node *root, int n1, int n2)
+    {
+        while (root != NULL)
+        {
+            if (n1 < root->data && n2 < root->data)
+                root = root->left;
+            else if (n1 > root->data && n2 > root->data)
+                root = root->right;
+            else
+                break;
+        }
+        return root;
     }
 };
