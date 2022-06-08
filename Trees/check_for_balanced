@@ -1,0 +1,47 @@
+class Solution1
+{
+public:
+    int height(Node *root)
+    {
+        if (root == NULL)
+            return 0;
+        return 1 + max(height(root->left), height(root->right));
+    }
+    bool isBalanced(Node *root)
+    {
+        if (root == NULL)
+            return true;
+        int l = height(root->left);
+        int r = height(root->right);
+        if (abs(l - r) <= 1 && isBalanced(root->left) && isBalanced(root->right))
+            return true;
+        return false;
+    }
+};
+class Solution2
+{
+public:
+    bool check(Node *root, int *height)
+    {
+        if (root == NULL)
+        {
+            *height = 0;
+            return 1;
+        }
+        int lh = 0;
+        int rh = 0;
+        int l = check(root->left, &lh);
+        int r = check(root->right, &rh);
+        *height = 1 + max(lh, rh);
+
+        if (abs(lh - rh) >= 2)
+            return 0;
+
+        return l && r;
+    }
+    bool isBalanced(Node *root)
+    {
+        int height = 0;
+        return check(root, &height);
+    }
+};
