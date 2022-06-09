@@ -1,0 +1,48 @@
+class Solution
+{
+public:
+    vector<int> val;
+    vector<struct Node *> ref;
+    void solve(struct Node *root)
+    {
+        if (root == NULL)
+            return;
+        solve(root->left);
+        val.push_back(root->data);
+        ref.push_back(root);
+        solve(root->right);
+    }
+    void correctBST(struct Node *root)
+    {
+        solve(root);
+        int l = -1, r;
+        for (int i = 0; i < val.size(); i++)
+        {
+            if (i == 0)
+            {
+                if (val[i] > val[i + 1])
+                    l = i;
+            }
+            else if (i == val.size() - 1)
+            {
+                if (val[i] < val[i - 1])
+                    r = i;
+            }
+            else
+            {
+                if ((val[i] > val[i - 1] && val[i] > val[i + 1]) || (val[i] < val[i - 1] && val[i] < val[i + 1]))
+                {
+                    if (l == -1)
+                        l = i;
+                    else
+                        r = i;
+                }
+            }
+        }
+        struct Node *p = ref[l];
+        struct Node *q = ref[r];
+        int w = p->data;
+        p->data = q->data;
+        q->data = w;
+    }
+};
