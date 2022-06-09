@@ -13,7 +13,7 @@ class Solution1
             q.pop();
             auto y = q.front();
             q.pop();
-            if (x == NULL & y == NULL)
+            if (x == NULL && y == NULL)
                 continue;
             if ((x == NULL && y != NULL) || (x != NULL && y == NULL))
                 return false;
