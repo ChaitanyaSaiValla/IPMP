@@ -1,0 +1,23 @@
+class Solution
+{
+    Node *removekeys(Node *root, int min, int max)
+    {
+        if (root == NULL)
+            return NULL;
+        root->left = removekeys(root->left, min, max);
+        root->right = removekeys(root->right, min, max);
+        if (root->data < min)
+        {
+            Node *r = root->right;
+            delete root;
+            return r;
+        }
+        if (root->data > max)
+        {
+            Node *l = root->left;
+            delete root;
+            return l;
+        }
+        return root;
+    }
+};
