@@ -1,0 +1,63 @@
+class Solution1
+{
+public:
+    Node *prev = NULL;
+    Node *head = NULL;
+    void solve(Node *root)
+    {
+        if (root == NULL)
+            return;
+        solve(root->left);
+        if (prev == NULL)
+            head = root;
+        else
+        {
+            root->left = prev;
+            prev->right = root;
+        }
+        prev = root;
+        solve(root->right);
+    }
+    Node *bToDLL(Node *root)
+    {
+        solve(root);
+        return head;
+    }
+};
+class Solution2
+{
+public:
+    vector<Node *> a;
+    void solve(Node *root)
+    {
+        if (root == NULL)
+            return;
+        solve(root->left);
+        a.push_back(root);
+        solve(root->right);
+    }
+    Node *bToDLL(Node *root)
+    {
+        a.clear();
+        if (root == NULL)
+            return NULL;
+        if (root->left == NULL && root->right == NULL)
+        {
+            root->left = NULL;
+            root->right = NULL;
+            return root;
+        }
+        solve(root);
+        Node *head = a[0];
+        a[0]->right = a[1];
+        for (int i = 1; i < a.size(); i++)
+        {
+            a[i]->left = a[i - 1];
+            if (i == a.size() - 1)
+                a[i]->right = NULL;
+            else
+                a[i]->right = a[i + 1];
+        }
+        return head;
+    }
+};
