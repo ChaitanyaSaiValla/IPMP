@@ -1,0 +1,33 @@
+class Solution
+{
+public:
+    bool isbst(Node *root, int l, int r)
+    {
+        if (root == NULL)
+            return true;
+        if (root->data >= r || root->data <= l)
+            return false;
+        else
+            return isbst(root->left, l, root->data) && isbst(root->right, root->data, r);
+    }
+
+    int count(Node *root)
+    {
+        if (root == NULL)
+            return 0;
+        else
+            return (1 + count(root->left) + count(root->right));
+    }
+
+    int largestBst(Node *root)
+    {
+        if (root == NULL)
+            return 0;
+        if (isbst(root, INT_MIN, INT_MAX))
+        {
+            return count(root);
+        }
+        else
+            return max(largestBst(root->left), largestBst(root->right));
+    }
+};
