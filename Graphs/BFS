@@ -1,0 +1,29 @@
+class Solution
+{
+public:
+    vector<int> bfsOfGraph(int V, vector<int> adj[])
+    {
+        queue<int> q;
+        vector<int> ans;
+        vector<bool> vis(V, 0);
+        q.push(0);
+        vis[0] = 1;
+        while (!q.empty())
+        {
+            int i = q.front();
+            q.pop();
+            ans.push_back(i);
+
+            for (auto j : adj[i])
+            {
+                if (!vis[j])
+                {
+                    q.push(j);
+                    vis[j] = 1;
+                }
+            }
+        }
+
+        return ans;
+    }
+};
