@@ -1,0 +1,34 @@
+class Solution
+{
+public:
+    void union_(int a, int b, int par[], int rank1[])
+    {
+        a = find(a, par);
+        b = find(b, par);
+        if (a != b)
+            if (rank1[a] < rank1[b])
+            {
+                par[a] = b;
+                rank1[b] += rank1[a];
+            }
+            else
+            {
+                par[b] = a;
+                rank1[a] += rank1[b];
+            }
+    }
+    int find(int x, int par[])
+    {
+        if (par[x] == x)
+            return x;
+        return par[x] = find(par[x], par);
+    }
+
+    bool isConnected(int x, int y, int par[], int rank1[])
+    {
+        if (find(x, par) == find(y, par))
+            return true;
+        else
+            return false;
+    }
+};
