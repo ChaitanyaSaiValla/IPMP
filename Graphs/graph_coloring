@@ -1,0 +1,23 @@
+class Solution
+{
+public:
+    void graphcoloring()
+    {
+        vector<int> ans(V, -1);
+        ans[0] = 0;
+        for (int i = 1; i < V; i++)
+        {
+            bool availableColours(V, true);
+            for (auto c : adj[i])
+            {
+                if (ans[c] != -1)
+                    availableColours[ans[c]] = false;
+            }
+            int clr;
+            for (clr = 0; clr < V; clr++)
+                if (availableColours[clr] == true)
+                    break;
+            ans[i] = clr;
+        }
+    }
+};
