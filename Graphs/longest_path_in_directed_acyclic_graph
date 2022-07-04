@@ -1,0 +1,42 @@
+class Solution
+{
+public:
+    stack<int> s;
+    int V;
+    vector<int> adj[];
+    void dfs(vector<bool> &vis, int u)
+    {
+        vis[u] = true;
+        for (auto v : adj[u])
+        {
+            if (!vis[v])
+                dfs(vis, v);
+        }
+        s.push(u);
+    }
+
+    int lpath(int s)
+    {
+
+        vector<bool> vis(V, false);
+        for (int i = 0; i < V; i++)
+        {
+            if (!vis[i])
+                dfs(vis, i);
+        }
+        vector<int> dist(V, INT_MAX);
+        dist[s] = 0;
+        while (!s.empty())
+        {
+            int x = s.top();
+            s.pop();
+            if (dist[x] != INT_MAX)
+            {
+                for (auto y : adj[x])
+                    if (dist[y] < adj[x][y] + dist[x])
+                        dist[y] = adj[x][y] + dist[x];
+            }
+        }
+        return ans;
+    }
+};
