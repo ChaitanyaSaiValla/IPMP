@@ -1,0 +1,41 @@
+class box
+{
+public:
+    int l, w, h;
+    void set(int a, int b, int c)
+    {
+        l = a, w = b, h = c;
+    }
+};
+class Solution
+{
+public:
+    int maxHeight(int height[], int width[], int length[], int n)
+    {
+        box b[3 * n];
+        int j = 0;
+        for (int i = 0; i < n; i++)
+        {
+            b[j++].set(min(height[i], width[i]), max(height[i], width[i]), length[i]);
+            b[j++].set(min(height[i], length[i]), max(height[i], length[i]), width[i]);
+            b[j++].set(min(length[i], width[i]), max(length[i], width[i]), height[i]);
+        }
+        n = 3 * n;
+        sort(b, b + n, [](auto &a, auto &b)
+             { return (a.l * a.w) < (b.l * b.w); });
+        vector<int> dp(n);
+        for (int i = 0; i < n; i++)
+            dp[i] = b[i].h;
+        int ans = -1;
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < i; j++)
+            {
+                if (b[i].l > b[j].l && b[i].w > b[j].w && dp[i] < dp[j] + b[i].h)
+                    dp[i] = dp[j] + b[i].h;
+            }
+            ans = max(ans, dp[i]);
+        }
+        return ans;
+    }
+};

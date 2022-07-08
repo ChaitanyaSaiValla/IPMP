@@ -1,0 +1,21 @@
+class Solution
+{
+public:
+    int dp[1001][1001];
+    long long sol(int arr[], int i, int j)
+    {
+        if (i > j)
+            return 0;
+        if (dp[i][j] != -1)
+            return dp[i][j];
+        if ((j - i + 1) % 2 == 0)
+            return dp[i][j] = max(sol(arr, i, j - 1) + arr[j], arr[i] + sol(arr, i + 1, j));
+        else
+            return dp[i][j] = min(sol(arr, i, j - 1), sol(arr, i + 1, j));
+    }
+    long long maximumAmount(int arr[], int n)
+    {
+        memset(dp, -1, sizeof(dp));
+        return sol(arr, 0, n - 1);
+    }
+};

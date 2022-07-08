@@ -1,0 +1,25 @@
+int dp[1001][1001];
+class Solution
+{
+public:
+    int solve(string &str, string &rts, int i, int j)
+    {
+        if (i < 0 || j < 0)
+            return 0;
+        if (dp[i][j] != -1)
+            return dp[i][j];
+        int a = 0, b = 0;
+        if (str[i] == rts[j])
+            a = 1 + solve(str, rts, i - 1, j - 1);
+        b = max(solve(str, rts, i - 1, j), solve(str, rts, i, j - 1));
+        return dp[i][j] = max(a, b);
+    }
+    int countMin(string str)
+    {
+        int n = str.size();
+        memset(dp, -1, sizeof(dp));
+        string rts = str;
+        reverse(rts.begin(), rts.end());
+        return n - solve(str, rts, n - 1, n - 1);
+    }
+};
